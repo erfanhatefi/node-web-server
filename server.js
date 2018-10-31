@@ -1,26 +1,26 @@
 const express = require('express');
+const hbs = require('hbs');
 
 var app = express();
 
+app.set('view engine', 'hbs');  //first one is key and the second one is the value
 app.use(express.static(__dirname + '/public'));        //app.use takes the middleware function we want to use
 
 //we would register a handler
 //it has two arguments ; one would be the URL and the second one would be the function to run
 app.get('/' , function(req, res){
     //res.send('Hello express');     //this would let us respond to the request sent
-    res.send({
-        name: 'Andrew',
-        likes: [
-            'biking',
-            'coding'
-        ]
-    });
+    res.render('home.hbs',{
+        pageTitle: 'Home Page',
+        welcomeMessageProp: 'Welcome to my page',
+        currentYear: new Date().getFullYear()
+    })
 });
 
 app.get('/about', function(req, res){
-    res.send({
-        author: 'Randkill',
-        dateModified: '2018'
+    res.render('about.hbs', {
+        pageTitle: 'About page',
+        currentYear: new Date().getFullYear()
     });
 });
 
